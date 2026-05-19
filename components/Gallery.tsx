@@ -1,10 +1,9 @@
 'use client';
- 
+
 import { useState } from 'react';
- 
+
 interface GItem { label: string; img: string; thumb: string; tall?: boolean; }
- 
-// All URLs use ?auto=format&fit=crop for maximum reliability on Vercel
+
 const shots: GItem[] = [
   {
     label: 'Suya on the Grill',
@@ -14,8 +13,8 @@ const shots: GItem[] = [
   },
   {
     label: 'Peppered Chicken',
-    img:   'https://images.unsplash.com/photo-1598103442097-8b74394b95c7?auto=format&fit=crop&w=700&q=80',
-    thumb: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c7?auto=format&fit=crop&w=350&q=70',
+    img:   'https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=400&q=75',
+    thumb: 'https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=400&q=75',
   },
   {
     label: 'Grilled Fish',
@@ -39,32 +38,33 @@ const shots: GItem[] = [
     thumb: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=350&q=70',
   },
 ];
- 
+
 export default function Gallery() {
   const [hovered,  setHovered]  = useState<number | null>(null);
   const [lightbox, setLightbox] = useState<number | null>(null);
- 
+
   const close = () => setLightbox(null);
   const prev  = () => setLightbox((l) => l !== null ? (l - 1 + shots.length) % shots.length : null);
   const next  = () => setLightbox((l) => l !== null ? (l + 1) % shots.length : null);
- 
+
   return (
     <>
       <section id="gallery" style={{ padding: '100px 40px', background: '#111111' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
- 
+
+          {/* ── Heading — changed to "Food Hub" ── */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 56, flexWrap: 'wrap', gap: 20 }}>
             <div>
               <div className="section-tag">The Goods</div>
               <h2 className="display" style={{ fontSize: 'clamp(48px,8vw,96px)', color: '#fff', lineHeight: 0.9 }}>
-                Food<br /><span style={{ color: 'var(--fire)' }}>Porn 🔥</span>
+                Food<br /><span style={{ color: 'var(--fire)' }}>Hub 🔥</span>
               </h2>
             </div>
             <p style={{ color: 'var(--muted)', fontSize: 15, maxWidth: 300, lineHeight: 1.7 }}>
               Hover to preview. Click to go full screen. Try not to get hungry.
             </p>
           </div>
- 
+
           {/* Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gridAutoRows: '220px', gap: 12 }}>
             {shots.map((s, i) => (
@@ -79,7 +79,7 @@ export default function Gallery() {
                   transition: 'border-color 0.3s',
                   background: '#2a2a2a',
                 }}>
- 
+
                 <img
                   src={s.thumb}
                   alt={s.label}
@@ -91,12 +91,12 @@ export default function Gallery() {
                     filter: hovered === i ? 'brightness(0.4)' : 'brightness(0.8)',
                   }}
                 />
- 
+
                 {/* Resting label */}
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 16px 14px', background: 'linear-gradient(to top,rgba(0,0,0,0.85),transparent)', opacity: hovered === i ? 0 : 1, transition: 'opacity 0.3s' }}>
                   <p style={{ fontFamily: 'Barlow Condensed, sans-serif', color: '#fff', fontSize: 13, letterSpacing: 2, textTransform: 'uppercase', fontWeight: 700 }}>{s.label}</p>
                 </div>
- 
+
                 {/* Hover overlay */}
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20, textAlign: 'center', opacity: hovered === i ? 1 : 0, transition: 'opacity 0.35s', background: 'rgba(255,69,0,0.18)' }}>
                   <div style={{ width: 48, height: 48, border: '2px solid var(--fire)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--fire)', fontSize: 20, marginBottom: 12 }}>⤢</div>
@@ -107,7 +107,7 @@ export default function Gallery() {
           </div>
         </div>
       </section>
- 
+
       {/* Lightbox */}
       {lightbox !== null && (
         <div onClick={close} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.95)', zIndex: 3000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, backdropFilter: 'blur(8px)', animation: 'lbIn 0.3s ease' }}>
@@ -134,7 +134,7 @@ export default function Gallery() {
           </div>
         </div>
       )}
- 
+
       <style>{`
         @keyframes lbIn { from{opacity:0} to{opacity:1} }
         @keyframes lbUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
@@ -145,4 +145,3 @@ export default function Gallery() {
     </>
   );
 }
- 
